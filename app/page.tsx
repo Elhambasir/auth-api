@@ -10,22 +10,29 @@ export default function Home() {
         <p>
           Welcome to the Authentication API! This API allows users to register,
           log in, and manage authentication securely using JWT (JSON Web
-          Tokens).
+          Tokens). The API is built with Next.js API routes and Prisma ORM. You
+          can access the API using the base URL below. use postman or any other
+          tools to test the API. Keep in mind that you choose the method (POST)
+          and the endpoint (/register, /login) to interact with the API. Or use
+          (GET) to get all users.
         </p>
       </section>
 
       <section className="mb-6">
         <h2 className="text-xl font-semibold">Base URL</h2>
         <code className="block bg-gray-900 p-2 rounded">
-        https://auth-gq52xayal-elhambasirs-projects.vercel.app
+          https://auth-gq52xayal-elhambasirs-projects.vercel.app/users
         </code>
       </section>
 
       <section className="mb-6">
         <h2 className="text-xl font-semibold">1. Register a New User</h2>
-        <code className="block bg-gray-900 p-2 rounded">POST /register</code>
+        <code className="block bg-gray-900 p-2 rounded">
+          POST /https://auth-api-kappa-seven.vercel.app/register
+        </code>
         <p>
-          <strong>Description:</strong> Creates a new user account. You can use any tools like postman or insomnia to test the API.
+          <strong>Description:</strong> Creates a new user account. You can use
+          any tools like postman or insomnia to test the API.
         </p>
         <pre className="bg-gray-900 p-2 rounded overflow-auto">{`
 {
@@ -38,7 +45,9 @@ export default function Home() {
 
       <section className="mb-6">
         <h2 className="text-xl font-semibold">2. User Login</h2>
-        <code className="block bg-gray-900 p-2 rounded">POST /login</code>
+        <code className="block bg-gray-900 p-2 rounded">
+          POST /https://auth-api-kappa-seven.vercel.app/login
+        </code>
         <p>
           <strong>Description:</strong> Authenticates a user and returns a JWT
           token.
