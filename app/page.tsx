@@ -1,101 +1,74 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className="p-6 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-4">
+        Authentication API Documentation
+      </h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold">Overview</h2>
+        <p>
+          Welcome to the Authentication API! This API allows users to register,
+          log in, and manage authentication securely using JWT (JSON Web
+          Tokens).
+        </p>
+      </section>
+
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold">Base URL</h2>
+        <code className="block bg-gray-900 p-2 rounded">
+        https://auth-gq52xayal-elhambasirs-projects.vercel.app
+        </code>
+      </section>
+
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold">1. Register a New User</h2>
+        <code className="block bg-gray-900 p-2 rounded">POST /register</code>
+        <p>
+          <strong>Description:</strong> Creates a new user account. You can use any tools like postman or insomnia to test the API.
+        </p>
+        <pre className="bg-gray-900 p-2 rounded overflow-auto">{`
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "securepassword"
+}
+        `}</pre>
+      </section>
+
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold">2. User Login</h2>
+        <code className="block bg-gray-900 p-2 rounded">POST /login</code>
+        <p>
+          <strong>Description:</strong> Authenticates a user and returns a JWT
+          token.
+        </p>
+        <pre className="bg-gray-900 p-2 rounded overflow-auto">{`
+{
+  "email": "john@example.com",
+  "password": "securepassword"
+}
+        `}</pre>
+      </section>
+
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold">Best Practices</h2>
+        <ul className="list-disc ml-6">
+          <li>✅ Store the JWT token securely.</li>
+          <li>✅ Always send the Authorization header for protected routes.</li>
+          <li>✅ Use HTTPS to protect API communication.</li>
+          <li>✅ Never expose your JWT_SECRET publicly.</li>
+        </ul>
+      </section>
+
+      <footer className="mt-10 text-center">
+        <p>
+          For support, contact{" "}
+          <a href="mailto:support@your-api.com" className="text-blue-600">
+            support@your-api.com
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        </p>
       </footer>
-    </div>
+    </main>
   );
 }
