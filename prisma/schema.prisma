@@ -15,6 +15,7 @@ datasource db {
 
 model User {
   id       String  @id @default(uuid()) @map("_id")
+  slug     String  @unique
   email    String  @unique
   password String
   name     String?
