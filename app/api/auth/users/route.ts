@@ -7,8 +7,10 @@ export async function GET() {
     const users = await prisma.user.findMany({
       select: {
         id: true,
+        slug: true,
         name: true,
-        email: true
+        email: true,
+        isSynced: true,
       }
     });
 
