@@ -1,38 +1,10 @@
 // app/api/webhooks/payments/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { PaymentWebhookPayload, SignatureVerificationResponse } from '@/types/hesabpay';
+import { PaymentWebhookPayload } from '@/types/hesabpay';
 import { paymentStore } from '@/lib/paymentStore';
+import { verifySignature } from '@/lib/verifySignature';
 // In-memory store (replace with database in production)
 
-async function verifySignature(signature: string, timestamp: string): Promise<boolean> {
-  const url = 'https://api-sandbox.hesab.com/api/v1/hesab/webhooks/verify-signature';
-  const apiKey = 'ZTUyNTg4MTYtNDU2MS00MmIzLTg0NzQtYzlmNGM4ODA0N2MzX181MjcwYjc1YjA4MzkwZjFiMmJlYg==';
-
-  const headers = {
-    'Authorization': `HesabPay ${apiKey}`,
-    'Content-Type': 'application/json',
-  };
-
-  const body = { signature, timestamp };
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Signature verification failed with status: ${response.status}`);
-    }
-
-    const data = await response.json() as SignatureVerificationResponse;
-    return data.success === true;
-  } catch (error) {
-    console.error('Signature verification error:', error);
-    return false;
-  }
-}
 // app/api/webhooks/payments/route.ts
 export async function POST(req: NextRequest) {
   const isDev = process.env.NODE_ENV === 'development';
