@@ -9,7 +9,7 @@ export async function verifySignature(
   const apiKey = 'ZTUyNTg4MTYtNDU2MS00MmIzLTg0NzQtYzlmNGM4ODA0N2MzX181MjcwYjc1YjA4MzkwZjFiMmJlYg==';
 
   const headers: HeadersInit = {
-    'Authorization': `HesabPay ${apiKey}`, // Changed to "HesabPay" as per HesabPay docs
+    'Authorization': `API-KEY ${apiKey}`, // Changed to "HesabPay" as per HesabPay docs
     'Content-Type': 'application/json',
   };
 
