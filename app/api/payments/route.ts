@@ -1,16 +1,29 @@
 // app/api/payments/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { PaymentWebhookPayload } from '@/types/hesabpay'; // Ensure this import matches your types file
+import { PaymentWebhookPayload } from '@/types/hesabpay';
 import { paymentStore } from '@/lib/paymentStore';
 
-// Define the response type explicitly (optional, for clarity)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// Define allowed origins
+const allowedOrigins = [
+  'https://smartbazar.af', // Your production frontend domain
+  'http://localhost:3002', // Optional: for local development (remove in prod if not needed)
+];
+
 export async function GET(req: NextRequest) {
   try {
-    const response = NextResponse.json(paymentStore as PaymentWebhookPayload[]); // Cast if needed
-    
-    // Add CORS headers
-    response.headers.set('Access-Control-Allow-Origin', '*'); // Allow all origins for testing
+    const origin = req.headers.get('origin');
+    const response = NextResponse.json(paymentStore as PaymentWebhookPayload[]);
+
+    // Check if the request origin is allowed
+    if (origin && allowedOrigins.includes(origin)) {
+      response.headers.set('Access-Control-Allow-Origin', origin);
+    } else {
+      return NextResponse.json(
+        { error: 'Origin not allowed' },
+        { status: 403 }
+      );
+    }
+
     response.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -24,15 +37,22 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// Handle CORS preflight requests
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function OPTIONS(req: NextRequest) {
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*', // Allow all origins for testing
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
+  const origin = req.headers.get('origin');
+
+  if (origin && allowedOrigins.includes(origin)) {
+    return new NextResponse(null, {
+      status: 204,
+      headers: {
+        'Access-Control-Allow-Origin': origin,
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    });
+  } else {
+    return NextResponse.json(
+      { error: 'Origin not allowed' },
+      { status: 403 }
+    );
+  }
 }
