@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PaymentWebhookPayload } from '@/types/hesabpay';
 import { paymentStore } from '@/lib/paymentStore';
-// import { verifySignature } from '@/lib/verifySignature';
+import { verifySignature } from '@/lib/verifySignature';
 // In-memory store (replace with database in production)
 
 // app/api/webhooks/payments/route.ts
@@ -19,9 +19,9 @@ export async function POST(req: NextRequest) {
 
   try {
     const payload = (await req.json()) as PaymentWebhookPayload;
-    // const { signature, timestamp } = payload;
+    const { signature, timestamp } = payload;
 
-    const isValidSignature = true; //isDev ? true : await verifySignature(signature, timestamp);
+    const isValidSignature = await verifySignature(signature, timestamp);
     if (!isValidSignature) {
       return NextResponse.json(
         { status: 'error', message: 'Invalid signature' },
